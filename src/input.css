@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#toggle:checked ~ label div.toggle-dot {
+	@apply translate-x-3;
+}
+
+.anime {
+	animation: rotate 1.5s linear infinite;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* .border {
+	@apply dark:bg-BgDarkBlue;
+	@apply bg-white;
+	@apply text-DarkBlue;
+	@apply text-white;
+	@apply p-2;
+	@apply shadow-md;
+} */
