@@ -199,7 +199,7 @@ fetch('https://restcountries.com/v2/all')
 		});
 	})
 	.catch((error) => {
-		console.log(error.message);
+		// console.log(error.message);
 		nations.innerHTML =
-			'<h2 class="absolute w-4/5 h-1/4 flex flex-col gap-3 justify-center items-center font-bold  text-TextDarkBlue text-2xl tracking-wider capitalize">failed to load data...</h2>';
+			'<h2 class="absolute w-4/5 h-1/4 flex flex-col gap-3 justify-center items-center font-bold  text-TextDarkBlue dark:text-white text-2xl tracking-wider capitalize">failed to load data...</h2>';
 	});
