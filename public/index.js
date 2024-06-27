@@ -1,10 +1,9 @@
 const checkBox = document.querySelector('#toggle');
-const html = document.querySelector('html');
+const html = document.documentElement;
 const search = document.querySelector('#searchbtn');
 const filterRegion = document.querySelector('#select');
 const goBack = document.querySelector('#arrowBack');
 const nations = document.querySelector('#countries');
-// let isClicked = true;
 
 // dark mode
 const toggleDarkMode = function () {
@@ -19,7 +18,7 @@ const toggleDarkMode = function () {
 toggleDarkMode();
 checkBox.addEventListener('click', toggleDarkMode);
 
-nations.innerHTML = `<div class="holder absolute w-4/5 h-2/4 flex flex-col gap-3 justify-center items-center">
+nations.innerHTML = `<div class="holder absolute w-11/12 h-2/4 flex flex-col gap-3 justify-center items-center">
 <div
 	class="anime w-16 h-16 rounded-full border-8 border-t-transparent border-b-transparent border-l-DarkBlue dark:border-l-white border-r-DarkBlue dark:border-r-white flex justify-center items-center">
 	<span class="bg-BgDarkBlue dark:bg-white rounded-full w-2 h-2"></span>
@@ -34,7 +33,7 @@ fetch('https://restcountries.com/v2/all')
 		const displayCountry = () => {
 			Divs = '';
 			result.map((country) => {
-				let El = `<div class=" country  overflow-hidden   grid grid-rows-1 grid-flow-row place-items-stretch gap-6 bg-white dark:bg-DarkBlue bg-opacity-30 shadow-md shadow-neutral-300 dark:shadow-BgDarkBlue rounded-lg object-contain" >
+				let El = `<div class=" country  overflow-hidden grid grid-rows-1 grid-flow-row place-items-stretch gap-6 bg-white dark:bg-DarkBlue bg-opacity-30 shadow-md shadow-neutral-300 dark:shadow-BgDarkBlue rounded-lg object-contain" data-name="${country.name}">
 				
 				<img src=${country.flags.png} alt="" class="rounded-t-lg  w-full h-52 object-center shadow-md ">
 				
@@ -61,7 +60,7 @@ fetch('https://restcountries.com/v2/all')
 
 			searchResults.map((searchObj) => {
 				// console.log(searchObj);
-				let El = `<div class="country overflow-hidden   grid grid-rows-1 grid-flow-row place-items-stretch gap-6 bg-white dark:bg-DarkBlue bg-opacity-30 shadow-md shadow-neutral-300 dark:shadow-BgDarkBlue rounded-lg object-contain">
+				let El = `<div class="country overflow-hidden   grid grid-rows-1 grid-flow-row place-items-stretch gap-6 bg-white dark:bg-DarkBlue bg-opacity-30 shadow-md shadow-neutral-300 dark:shadow-BgDarkBlue rounded-lg object-contain" data-name="${searchObj.name}">
 			
 				<img src=${searchObj.flags.png} alt="" class="rounded-t-lg  w-full h-52 object-center shadow-md ">
 				
@@ -89,7 +88,7 @@ fetch('https://restcountries.com/v2/all')
 			// console.log(filterResults);
 
 			filterResults.map((filterObj) => {
-				let El = `<div class="country overflow-hidden   grid grid-rows-1 grid-flow-row place-items-stretch gap-6 bg-white dark:bg-DarkBlue bg-opacity-30 shadow-md shadow-neutral-300 dark:shadow-BgDarkBlue rounded-lg object-contain">
+				let El = `<div class="country overflow-hidden   grid grid-rows-1 grid-flow-row place-items-stretch gap-6 bg-white dark:bg-DarkBlue bg-opacity-30 shadow-md shadow-neutral-300 dark:shadow-BgDarkBlue rounded-lg object-contain" data-name="${filterObj.name}">
 			
 				<img src=${filterObj.flags.png} alt="" class="rounded-t-lg  w-full h-52 object-center shadow-md ">
 				
@@ -119,11 +118,7 @@ fetch('https://restcountries.com/v2/all')
 				filterRegion.classList.add('hidden');
 				document.querySelector('#searchDiv').classList.add('hidden');
 				const targetNation = result.filter((nat) =>
-					nat.name
-						.toLowerCase()
-						.includes(
-							targetDiv.childNodes[3].children[0].textContent.toLowerCase()
-						)
+					nat.name.toLowerCase() === targetDiv.getAttribute('data-name').toLowerCase()
 				);
 				// console.log(targetNation);
 				targetNation.map((targetDet) => {
@@ -137,32 +132,26 @@ fetch('https://restcountries.com/v2/all')
 							<h2 class="text-2xl  font-extrabold tracking-wider ">${targetDet.name}</h2>
 							<div class="flex flex-col md:flex-row justify-start  items-start md:gap-20 gap-8">
 								<ul>
-									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">Native name:</span> ${
-										targetDet.nativeName
-									}</h2>
-									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">population:</span> ${
-										targetDet.population
-									}</h2>
-									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">Region:</span> ${
-										targetDet.region
-									}</h2>
-									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">SubRegion:</span> ${
-										targetDet.subregion
-									}</h2>
-									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">capital:</span> ${
-										targetDet.capital
-									}</h2>
+									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">Native name:</span> ${targetDet.nativeName
+						}</h2>
+									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">population:</span> ${targetDet.population
+						}</h2>
+									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">Region:</span> ${targetDet.region
+						}</h2>
+									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">SubRegion:</span> ${targetDet.subregion
+						}</h2>
+									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">capital:</span> ${targetDet.capital
+						}</h2>
 								</ul>
 								<ul>
-									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">Top level domain:</span> ${
-										targetDet.topLevelDomain
-									}</h2>
+									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">Top level domain:</span> ${targetDet.topLevelDomain
+						}</h2>
 									<h2 class="pb-1 text-sm  font-medium tracking-wider capitalize" > <span class="font-bold">Currencies:</span> ${targetDet.currencies.map(
-										(elem) => elem.name
-									)}</h2>
+							(elem) => elem.name
+						)}</h2>
                                     <h2 id="lan class="pb-1 text-sm  font-medium tracking-wider capitalize"> <span class="font-bold">languages:</span> ${targetDet.languages.map(
-																			(elem) => elem.name
-																		)}
+							(elem) => elem.name
+						)}
 									</h2>
 								</ul>
 							</div>
